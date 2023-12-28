@@ -131,7 +131,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li><a href='w5.html'>w5</a><li><a href='w6.html'>w6</a><li><a href='w7.html'>w7</a><li><a href='w15.html'>w15</a><li><a href='ansic.html'>ansic</a><li class='has-children'><a href='c_ex.html'>c_ex</a><ul class='dropdown'><li><a href='1.Say Hello World!.html'>1.Say Hello World!</a><li><a href='2.Say Hello World! Bye Bye..html'>2.Say Hello World! Bye Bye.</a><li><a href='3.變數宣告的例子.html'>3.變數宣告的例子</a></li></ul><li><a href='Brython.html'>Brython</a></li>
+                     <li><a href='About.html'>About</a><li><a href='w5.html'>w5</a><li><a href='w6.html'>w6</a><li><a href='w7.html'>w7</a><li><a href='w15.html'>w15</a><li><a href='ansic.html'>ansic</a><li><a href='c_ex.html'>c_ex</a><li><a href='Brython.html'>Brython</a></li>
                       </ul>
                 </nav>
               </div>
@@ -142,8 +142,151 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">ansic << <a href='ansic.html'>Previous</a> <a href='1.Say Hello World!.html'>Next</a> >> 1.Say Hello World!<br /><h1>c_ex</h1>
-<br />ansic << <a href='ansic.html'>Previous</a> <a href='1.Say Hello World!.html'>Next</a> >> 1.Say Hello World!</div>
+    <div id="tipue_search_content">ansic << <a href='ansic.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython<br /><h1>c_ex</h1>
+<p><strong>1.Say Hello World!</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+void main()
+{
+ /* 印出 Hello */
+printf("Hello World!");
+}</pre>
+<p><img alt="" height="107" src="./../images/2-1.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>2.Say Hello World! Bye Bye.</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+int main()
+{
+/* 印出 Hello World! Bye Bye */
+printf("Hello World! ");
+printf("Bye ");
+printf("Bye");
+return 0;
+}
+</pre>
+<p><img alt="" height="62" src="./../images/2-2.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>3.變數宣告的例子</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+int main()
+{
+int a = 1;
+int A = 8;
+int b = 2, c;
+c = A - a + b;
+/* 輸出 a, A, b, c 到螢幕 */
+printf( "a = %d, A = %d, b = %d, c = %d ", a, A, b, c );
+return 0;
+}</pre>
+<p><img alt="" height="53" src="./../images/2-3.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>4.浮點運算的程式</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+void main()
+{
+float a = 0.5;
+double b = 1.2;
+int c = 3;
+b = b + a + c;
+/* 輸出 a, b, c 到螢幕 */
+printf( " a = %3.1f, b = %3.1f, c = %d ", a ,b, c );
+}
+</pre>
+<p><img alt="" height="71" src="./../images/2-4.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>5.字元範例</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+int main()
+{
+char x, y;
+x = 'a';
+y = (char)97;
+/* 輸出 x, y, x, 最後一個是以 ASCII 值顯示 y */
+printf( " x = %c, y = %c, ASCII of y = %d", x, y, y );
+return 0;
+}</pre>
+<p><img alt="" height="52" src="./../images/2-5.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>6.digital</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 64;
+    int b = 0x40;
+    long c = 64L;
+
+    printf("%d, %d, %ld", a, b, c);
+
+    return 0;
+}
+</pre>
+<p><img alt="" height="78" src="./../images/2-6.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>7.輸入一個字元</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main() {
+    char ch;
+
+    printf("Input a char: ");
+    scanf("%c", &amp;ch);
+
+    printf("You entered: %c\n", ch);
+
+    return 0;
+}
+</pre>
+<p><img alt="" height="102" src="./../images/2-7.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>8.輸入一個整數</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+int main()
+{
+int i;
+printf("Input an integer:");
+scanf( "%d", &amp;i ); /* ch 前面加個 &amp;(位址運算元) */
+printf( "the number is %d", i );
+return 0;
+}
+</pre>
+<p><img alt="" height="90" src="./../images/2-8.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>9.基本運算範例</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include&lt;stdio.h&gt;
+int main()
+{
+int a,b;
+a = 10; b = 3;
+printf( "%d \n", a * b );
+printf( "%d \n", a / b );
+printf( "%d \n", a + b );
+printf( "%d \n", a - b );
+printf( "%d \n", a % b );
+return 0;
+}</pre>
+<p><img alt="" height="252" src="./../images/2-9.png" width="400"/></p>
+<p><strong></strong></p>
+<p><strong>10.關係運算元的範例</strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+int main()
+{
+int a = 10, b = 5;
+printf( " a == b is %d \n", a == b );
+printf( " a &gt; b is %d \n", a &gt; b );
+printf( " a &lt; b is %d \n", a &lt; b );
+printf( " a &gt;= b is %d \n", a &gt;= b );
+printf( " a &lt;= b is %d \n", a &lt;= b );
+printf( " a != b is %d \n", a != b );
+printf( "\n" );
+b = 10;
+printf( " a == b is %d \n", a == b );
+printf( " a &gt; b is %d \n", a &gt; b );
+printf( " a &lt; b is %d \n", a &lt; b );
+printf( " a &gt;= b is %d \n", a &gt;= b );
+printf( " a &lt;= b is %d \n", a &lt;= b );
+printf( " a != b is %d \n", a != b );
+return 0;
+}</pre>
+<p><img alt="" height="399" src="./../images/2-10.png" width="400"/></p><br />ansic << <a href='ansic.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython</div>
         
     <!-- footer -->
       <div class="container">
