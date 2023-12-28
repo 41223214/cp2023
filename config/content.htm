@@ -1,6 +1,51 @@
 <h1>About</h1>
 <p><a href="https://github.com/mdecycu/cmsite"> https://github.com/mdecycu/cmsite</a></p>
-<h1>USA</h1>
+<h1>w5</h1>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">// 包含標準輸出入程式庫的標頭文件
+// https://blog.csdn.net/weixin_38468077/article/details/101069365
+// http://www.gnuplot.info/demo/
+// https://github.com/sysprog21/rv32emu
+// https://github.com/sysprog21/semu 
+// https://docs.google.com/presentation/d/14N0cWG2SnBSqhc2cLF0_2VerB9FF8JN3
+// https://cs61c.org/fa23/
+// https://greenteapress.com/wp/think-python-2e/
+// https://github.com/ecalvadi/c99-examples
+// https://github.com/gouravthakur39/beginners-C-program-examples
+// https://github.com/ergenekonyigit/Numerical-Analysis-Examples
+// https://www.che.ncku.edu.tw/facultyweb/changct/html/teaching/CPPandMATLAB/Past/pdf%20Files/Chap02-Ling.pdf
+// https://gteceducation.com.sg/Brochures/PROGRAMMING/C%20PROGRAMMING%20FULL.pdf
+// https://jsommers.github.io/cbook/cbook.pdf
+// https://jsommers.github.io/cbook/index.html
+// http://student.itee.uq.edu.au/courses/csse2310/CProgrammingNotes.pdf
+// http://cslibrary.stanford.edu/101/EssentialC.pdf
+// https://publications.gbdirect.co.uk/c_book/
+// https://www.fossil-scm.org/fossil-book/doc/2ndEdition/fossilbook.pdf
+// ***** execute on replit 
+// cd downloads
+// cc gnuplot_ex1.c -o gnuplot_ex1
+// ./gnuplot_ex1
+#include &lt;stdio.h&gt;
+
+// 主函式
+int main() {
+    // Start a Gnuplot process using popen
+    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
+    if (!gnuplotPipe) {
+        fprintf(stderr, "Failed to start Gnuplot.\n");
+        return 1;
+    }
+
+    // Use Gnuplot plotting commands, specify font and output as PNG
+    fprintf(gnuplotPipe, "set terminal png font 'default,10' size 800,400\n");
+    fprintf(gnuplotPipe, "set output './../images/gnuplot_ex1.png'\n");
+    fprintf(gnuplotPipe, "plot sin(x)");
+    // Close popen
+    pclose(gnuplotPipe);
+
+    return 0;
+}</pre>
+<p><br/><br/><img alt="" height="400" src="/images/gnuplot_ex1.png" width="800"/></p>
+<h1>w6</h1>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 #include &lt;gd.h&gt;
 #include &lt;math.h&gt;
@@ -90,283 +135,6 @@ void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotatio
     gdImageFilledPolygon(img, points, 10, color);
 }</pre>
 <p><img alt="" height="400" src="/images/usa_flag.png" width="758"/></p>
-<h1>w7</h1>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
-#include &lt;gd.h&gt;
-#include &lt;math.h&gt;
-
-void draw_japan_flag(gdImagePtr img);
-void draw_white_sun(gdImagePtr img, int center_x, int center_y, int sun_radius, int white, int red );
-
-int main() {
-    // width 3: height 2
-    int width = 1200;
-    int height = 2 * width / 3;
-
-    gdImagePtr img = gdImageCreateTrueColor(width, height);
-    gdImageAlphaBlending(img, 0);
-
-    draw_japan_flag(img);
-
-    FILE *outputFile = fopen("./../images/japan_flag.png", "wb");
-    if (outputFile == NULL) {
-        fprintf(stderr, "Error opening the output file.\n");
-        return 1;
-    }
-    gdImagePngEx(img, outputFile, 9);
-    fclose(outputFile);
-    gdImageDestroy(img);
-    return 0;
-}
-
-void draw_japan_flag(gdImagePtr img) {
-    int width = gdImageSX(img);
-    int height = gdImageSY(img);
-    int red, white ;
-    int center_x =  0.5 * width;
-    int center_y =  0.5 * height;
-    int sun_radius = 145 ;
-
-    // Colors for the flag
-    red = gdImageColorAllocate(img, 242, 0, 0); // Red color
-    white = gdImageColorAllocate(img, 255, 255, 255); // White stripes
-
-
-    // 繪製白色矩形區域
-    gdImageFilledRectangle(img, 0, 0, width, height, white);
-
-
-    // 繪製太陽內部
-    gdImageFilledEllipse(img, center_x, center_y, sun_radius * 3, sun_radius * 3, red);
-}
-</pre>
-<p><img alt="" height="400" src="/images/japan_flag.png" width="599"/></p>
-<p></p>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
-#include &lt;gd.h&gt;
-#include &lt;math.h&gt;
-
-void draw_chinese_flag(gdImagePtr img);
-
-int main() {
-    int width = 300; // 國旗寬度
-    int height = 200; // 國旗高度
-
-    gdImagePtr im = gdImageCreateTrueColor(width, height);
-    gdImageAlphaBlending(im, 0);
-
-    draw_chinese_flag(im);
-
-    FILE *outputFile = fopen("./../images/proc_flag.png", "wb");
-    if (outputFile == NULL) {
-        fprintf(stderr, "打开输出文件时出错。\n");
-        return 1;
-    }
-
-    gdImagePngEx(im, outputFile, 9);
-    fclose(outputFile);
-    gdImageDestroy(im);
-
-    return 0;
-}
-
-// 声明 draw_star 函数
-void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle);
-
-void draw_chinese_flag(gdImagePtr img) {
-    int width = gdImageSX(img);
-    int height = gdImageSY(img);
-    int red, yellow;
-
-    // 國旗顏色
-    red = gdImageColorAllocate(img, 255, 0, 0); // 紅色背景
-    yellow = gdImageColorAllocate(img, 255, 255, 0); // 黃色星星
-
-    // 畫紅色背景
-    gdImageFilledRectangle(img, 0, 0, width, height, red);
-
-    // 設置星星的大小和位置
-    int star_size = (int)(0.28 * height);
-    int star_x = (int)(0.165 * width);
-    int star_y = (int)(0.265 * height);
-
-    // 畫大星星
-    draw_star(img, star_x, star_y, star_size, yellow, 11.0);
-
-    // 繪製小星星，位置根據實際國旗比例計算
-    double radius = 0.15 * height;
-    double angle = 360 / 7 * M_PI / 179.0;
-    double rotation = -M_PI / 7.5;
-    int cx = (int)(0.32 * width);
-    int cy = (int)(0.27 * height);
-
-    for (int i = -1; i &lt; 3; i++) {
-        int x = (int)(cx + radius * cos(i * angle + rotation));
-        int y = (int)(cy + radius * sin(i * angle + rotation));
-        draw_star(img, x, y, 19, yellow, M_PI / 5.0);
-    }
-}
-
-void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle) {
-    gdPoint points[10];
-
-    // 计算星形的五个外点和五个内点
-    double outer_radius = size / 2;
-    double inner_radius = size / 6;
-    double angle = M_PI / 5.0;
-
-    for (int i = 0; i &lt; 10; i++) {
-        double radius = (i % 2 == 0) ? outer_radius : inner_radius;
-        double theta = rotation_angle + i * angle;
-        points[i].x = x + radius * cos(theta);
-        points[i].y = y + radius * sin(theta);
-    }
-
-    // 使用 gdImageFilledPolygon 绘制星形
-    gdImageFilledPolygon(img, points, 10, color);
-}</pre>
-<p><img alt="" height="400" src="/images/proc_flag.png" width="599"/></p>
-<p></p>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
-#include &lt;gd.h&gt;
-#include &lt;math.h&gt;
-
-void draw_uk_flag(gdImagePtr img);
-void fillTriangle(gdImagePtr img, int x1, int y1, int x2, int y2, int x3, int y3, int color);
-
-int main() {
-    // 设置国旗的宽和高
-    int width = 1200;
-    int height = width / 2;
-
-    // 创建图像
-    gdImagePtr img = gdImageCreateTrueColor(width, height);
-    gdImageAlphaBlending(img, 0);
-
-    // 绘制英国国旗
-    draw_uk_flag(img);
-
-    // 将图像保存到文件
-    FILE *outputFile = fopen("./../images/uk_flag.png", "wb");
-    if (outputFile == NULL) {
-        fprintf(stderr, "打开输出文件时发生错误。\n");
-        return 1;
-    }
-    gdImagePngEx(img, outputFile, 9);
-    fclose(outputFile);
-    gdImageDestroy(img);
-    return 0;
-}
-
-
-
-void draw_uk_flag(gdImagePtr img) {
-    int width = gdImageSX(img);
-    int height = gdImageSY(img);
-
-    int red, white, blue;
-    red = gdImageColorAllocate(img, 204, 0, 0);       // 红色
-    white = gdImageColorAllocate(img, 255, 255, 255); // 白色
-    blue = gdImageColorAllocate(img, 0, 0, 153);      // 蓝色
-
-    gdImageFilledRectangle(img, 0, 0, width, height, blue);
-
-
-  int x1, y1, x2, y2, x3, y3;
-  {
-    int line_thickness = 100;
-    gdImageSetThickness(img, line_thickness);
-
-    int x1, y1, x2, y2, x3, y3;
-
-    // 绘制白色斜线
-    x1 = 0;
-    y1 = 600;
-    x2 = 1200;
-    y2 = 0;
-    gdImageLine(img, x1, y1, x2, y2, white);
-
-    x1 = 0;
-    y1 = 0;
-    x2 = 1200;
-    y2 = 600;
-    gdImageLine(img, x1, y1, x2, y2, white);
-}
-  {
-    int line_thickness = 33;
-    gdImageSetThickness(img, line_thickness);
-
-
-    // 绘制红色斜线
-    x1 = 566;
-    y1 = 300;
-    x2 = 1166;
-    y2 = 0;
-    gdImageLine(img, x1, y1, x2, y2, red);
-
-    x1 = 1233;
-    y1 = 600;
-    x2 = 633;
-    y2 = 300;
-    gdImageLine(img, x1, y1, x2, y2, red);
-
-    x1 = 566;
-    y1 = 300;
-    x2 = -33;
-    y2 = 0;
-    gdImageLine(img, x1, y1, x2, y2, red);
-
-    x1 = 600;
-    y1 = 316.5;
-    x2 = 0;
-    y2 = 616.5;
-    gdImageLine(img, x1, y1, x2, y2, red);
-  }
-  {
-  int line_thickness = 33;
-  gdImageSetThickness(img, line_thickness);
-
-  int x1, y1, x2, y2, x3, y3;
-
-  // 绘制  斜线
-  x1 = 0;
-  y1 = 600;
-  x2 = 1200;
-  y2 = 0;
-  gdImageLine(img, x1, y1, x2, y2, red );
-
-
-  x1 = 1200;
-    y1 = 16.5;
-    x2 = 600;
-    y2 = 316.5;
-    gdImageLine(img, x1, y1, x2, y2, white);
-
-
-  x1 = 0;
-    y1 = 583.5;
-    x2 = 600;
-    y2 = 283.5;
-    gdImageLine(img, x1, y1, x2, y2, white);
-
-
-  }
-
-    // 绘制白色十字
-    int cross_width = width / 32;
-    int cross_arm_width = width / 32;
-    int center_x = width / 2;
-    int center_y = height / 2;
-
-    gdImageFilledRectangle(img, center_x + 2.7 * cross_width, 0, center_x - 2.7 * cross_width, height, white);
-    gdImageFilledRectangle(img, 0, center_y + 2.7 * cross_arm_width, width, center_y - 2.7 * cross_arm_width, white);
-
-    // 绘制红色十字
-    gdImageFilledRectangle(img, center_x + 1.5 * cross_width, 0, center_x - 1.5 * cross_width, height, red);
-    gdImageFilledRectangle(img, 0, center_y + 1.5 * cross_arm_width, width, center_y - 1.5 * cross_arm_width, red);
-}</pre>
-<p><img alt="" height="281" src="/images/uk_flag.png" width="562"/></p>
-<h1>ROC</h1>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 #include &lt;gd.h&gt;
 #include &lt;math.h&gt;
@@ -451,6 +219,189 @@ void draw_white_sun(gdImagePtr img, int center_x, int center_y, int sun_radius, 
     gdImageFilledEllipse(img, center_x, center_y, sun_radius * 1.1, sun_radius * 1.1, white);
 }</pre>
 <p><img alt="" height="400" src="/images/roc_flag.png" width="599"/></p>
+<h1>w7</h1>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+#include &lt;gd.h&gt;
+#include &lt;math.h&gt;
+
+void draw_japan_flag(gdImagePtr img);
+void draw_white_sun(gdImagePtr img, int center_x, int center_y, int sun_radius, int white, int red );
+
+int main() {
+    // width 3: height 2
+    int width = 1200;
+    int height = 2 * width / 3;
+
+    gdImagePtr img = gdImageCreateTrueColor(width, height);
+    gdImageAlphaBlending(img, 0);
+
+    draw_japan_flag(img);
+
+    FILE *outputFile = fopen("./../images/japan_flag.png", "wb");
+    if (outputFile == NULL) {
+        fprintf(stderr, "Error opening the output file.\n");
+        return 1;
+    }
+    gdImagePngEx(img, outputFile, 9);
+    fclose(outputFile);
+    gdImageDestroy(img);
+    return 0;
+}
+
+void draw_japan_flag(gdImagePtr img) {
+    int width = gdImageSX(img);
+    int height = gdImageSY(img);
+    int red, white ;
+    int center_x =  0.5 * width;
+    int center_y =  0.5 * height;
+    int sun_radius = 145 ;
+
+    // Colors for the flag
+    red = gdImageColorAllocate(img, 242, 0, 0); // Red color
+    white = gdImageColorAllocate(img, 255, 255, 255); // White stripes
+
+
+    // 繪製白色矩形區域
+    gdImageFilledRectangle(img, 0, 0, width, height, white);
+
+
+    // 繪製太陽內部
+    gdImageFilledEllipse(img, center_x, center_y, sun_radius * 3, sun_radius * 3, red);
+}
+</pre>
+<p><img alt="" height="400" src="/images/japan_flag.png" width="599"/></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+#include &lt;gd.h&gt;
+#include &lt;math.h&gt;
+
+void draw_chinese_flag(gdImagePtr img);
+
+int main() {
+    int width = 300; // 國旗寬度
+    int height = 200; // 國旗高度
+
+    gdImagePtr im = gdImageCreateTrueColor(width, height);
+    gdImageAlphaBlending(im, 0);
+
+    draw_chinese_flag(im);
+
+    FILE *outputFile = fopen("./../images/proc_flag.png", "wb");
+    if (outputFile == NULL) {
+        fprintf(stderr, "打开输出文件时出错。\n");
+        return 1;
+    }
+
+    gdImagePngEx(im, outputFile, 9);
+    fclose(outputFile);
+    gdImageDestroy(im);
+
+    return 0;
+}
+
+// 声明 draw_star 函数
+void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle);
+
+void draw_chinese_flag(gdImagePtr img) {
+    int width = gdImageSX(img);
+    int height = gdImageSY(img);
+    int red, yellow;
+
+    // 國旗顏色
+    red = gdImageColorAllocate(img, 255, 0, 0); // 紅色背景
+    yellow = gdImageColorAllocate(img, 255, 255, 0); // 黃色星星
+
+    // 畫紅色背景
+    gdImageFilledRectangle(img, 0, 0, width, height, red);
+
+    // 設置星星的大小和位置
+    int star_size = (int)(0.28 * height);
+    int star_x = (int)(0.165 * width);
+    int star_y = (int)(0.265 * height);
+
+    // 畫大星星
+    draw_star(img, star_x, star_y, star_size, yellow, 11.0);
+
+    // 繪製小星星，位置根據實際國旗比例計算
+    double radius = 0.15 * height;
+    double angle = 360 / 7 * M_PI / 179.0;
+    double rotation = -M_PI / 7.5;
+    int cx = (int)(0.32 * width);
+    int cy = (int)(0.27 * height);
+
+    for (int i = -1; i &lt; 3; i++) {
+        int x = (int)(cx + radius * cos(i * angle + rotation));
+        int y = (int)(cy + radius * sin(i * angle + rotation));
+        draw_star(img, x, y, 19, yellow, M_PI / 5.0);
+    }
+}
+
+void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle) {
+    gdPoint points[10];
+
+    // 计算星形的五个外点和五个内点
+    double outer_radius = size / 2;
+    double inner_radius = size / 6;
+    double angle = M_PI / 5.0;
+
+    for (int i = 0; i &lt; 10; i++) {
+        double radius = (i % 2 == 0) ? outer_radius : inner_radius;
+        double theta = rotation_angle + i * angle;
+        points[i].x = x + radius * cos(theta);
+        points[i].y = y + radius * sin(theta);
+    }
+
+    // 使用 gdImageFilledPolygon 绘制星形
+    gdImageFilledPolygon(img, points, 10, color);
+}</pre>
+<p><img alt="" height="400" src="/images/proc_flag.png" width="599"/></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;iostream&gt;
+
+void drawUnionJack(int width, int height) {
+    // 繪製橫條紋
+    for (int i = 0; i &lt; height; ++i) {
+        for (int j = 0; j &lt; width; ++j) {
+            if (i == height / 2) {
+                std::cout &lt;&lt; "-";
+            } else {
+                std::cout &lt;&lt; " ";
+            }
+        }
+        std::cout &lt;&lt; std::endl;
+    }
+
+    // 繪製直條紋
+    for (int i = 0; i &lt; height; ++i) {
+        for (int j = 0; j &lt; width; ++j) {
+            if (j == width / 2) {
+                std::cout &lt;&lt; "|";
+            } else {
+                std::cout &lt;&lt; " ";
+            }
+        }
+
+        // 在底部添加額外的空白行
+        if (i == height - 1) {
+            std::cout &lt;&lt; std::endl;
+        } else {
+            std::cout &lt;&lt; std::endl;
+        }
+    }
+}
+
+int main() {
+    int width, height;
+
+    // 設定較小的國旗寬度和高度
+    width = 20;
+    height = 10;
+
+    // 繪製英國國旗
+    drawUnionJack(width, height);
+
+    return 0;
+}
+</pre>
+<p><img alt="" height="300" src="/images/uk_flag.png" width="600"/></p>
 <h1>w15</h1>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 #include &lt;gd.h&gt;
@@ -524,7 +475,8 @@ void draw_roc_flag(gdImagePtr img, int line_thickness) {
 <p><img alt="" height="400" src="/images/roc_flag_in_gd.png" width="599"/></p>
 <p></p>
 <h1>ANSIC</h1>
-<br/><br/><strong><span>1.</span></strong><span><span>編寫一個 C 程式來列印您的姓名、出生日期和手機號碼。</span></span>
+<p></p>
+<p><em><strong>1.編寫一個 C 程式來列印您的姓名、出生日期和手機號碼。</strong></em></p>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 
 int main()  
@@ -541,72 +493,276 @@ int main()
     // Indicate successful execution
     return(0); 
 }</pre>
-<br/><strong><span>2.</span></strong><span><span>編寫一個C 程式來取得您正在使用的C 版本。</span></span><h2>1.編寫一個 C 程式來列印您的姓名、出生日期和手機號碼。</h2>
+<p><img alt="" height="157" src="/images/1.png" width="400"/></p>
+<p><br/><br/><strong><em>2.編寫一個 C 程式來取得您正在使用的 C 版本。</em></strong></p>
+<ul>
+<li><span><span>輸出「We are using U18!」</span></span></li>
+</ul>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 
-int main()  
-{
-    // Print Name
-    printf("Name   : Andrew Wu\n"); 
-
-    // Print Date of Birth
-    printf("DOB    : June 8, 2005\n"); 
-
-    // Print Mobile Number
-    printf("Mobile : 06-200000000\n"); 
+int main(int argc, char** argv) {
+    // Check for C standard version
+    #if __STDC_VERSION__ &gt;=  201710L
+        printf("We are using C18!\n");
+    #else
+        printf("We are using C89/C90!\n");
+    #endif
 
     // Indicate successful execution
-    return(0); 
-}</pre>
-<p></p><h1>w5</h1>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">// 包含標準輸出入程式庫的標頭文件
-// https://blog.csdn.net/weixin_38468077/article/details/101069365
-// http://www.gnuplot.info/demo/
-// https://github.com/sysprog21/rv32emu
-// https://github.com/sysprog21/semu 
-// https://docs.google.com/presentation/d/14N0cWG2SnBSqhc2cLF0_2VerB9FF8JN3
-// https://cs61c.org/fa23/
-// https://greenteapress.com/wp/think-python-2e/
-// https://github.com/ecalvadi/c99-examples
-// https://github.com/gouravthakur39/beginners-C-program-examples
-// https://github.com/ergenekonyigit/Numerical-Analysis-Examples
-// https://www.che.ncku.edu.tw/facultyweb/changct/html/teaching/CPPandMATLAB/Past/pdf%20Files/Chap02-Ling.pdf
-// https://gteceducation.com.sg/Brochures/PROGRAMMING/C%20PROGRAMMING%20FULL.pdf
-// https://jsommers.github.io/cbook/cbook.pdf
-// https://jsommers.github.io/cbook/index.html
-// http://student.itee.uq.edu.au/courses/csse2310/CProgrammingNotes.pdf
-// http://cslibrary.stanford.edu/101/EssentialC.pdf
-// https://publications.gbdirect.co.uk/c_book/
-// https://www.fossil-scm.org/fossil-book/doc/2ndEdition/fossilbook.pdf
-// ***** execute on replit 
-// cd downloads
-// cc gnuplot_ex1.c -o gnuplot_ex1
-// ./gnuplot_ex1
-#include &lt;stdio.h&gt;
+    return 0;
+}
+</pre>
+<p><img alt="" height="60" src="/images/2.png" width="400"/></p>
+<p><strong><em>3.寫一個 C 程序，使用 (#) 列印一個區塊 F，其中 F 的高度為 6 個字符，寬度為 5 個和 4 個字符。並且還列印一個非常大的“C”。</em></strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 
-// 主函式
-int main() {
-    // Start a Gnuplot process using popen
-    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
-    if (!gnuplotPipe) {
-        fprintf(stderr, "Failed to start Gnuplot.\n");
-        return 1;
-    }
+int main() 
+{
+    // Print a line of hashes
+    printf("######\n");
 
-    // Use Gnuplot plotting commands, specify font and output as PNG
-    fprintf(gnuplotPipe, "set terminal png font 'default,10' size 800,400\n");
-    fprintf(gnuplotPipe, "set output './../images/gnuplot_ex1.png'\n");
-    fprintf(gnuplotPipe, "plot sin(x)");
-    // Close popen
-    pclose(gnuplotPipe);
+    // Print a single hash
+    printf("#\n");
+
+    // Print a single hash
+    printf("#\n");
+
+    // Print a line of hashes
+    printf("#####\n");
+
+    // Print a single hash
+    printf("#\n");
+
+    // Print a single hash
+    printf("#\n");
+
+    // Print a single hash
+    printf("#\n");
+
+    // Print top line of pattern
+    printf("    ######\n");
+
+    // Print second line of pattern
+    printf("  ##      ##\n");
+
+    // Print lines 3 to 7 of pattern
+    printf(" #\n");
+    printf(" #\n");
+    printf(" #\n");
+    printf(" #\n");
+    printf(" #\n");
+
+    // Print bottom line of pattern
+    printf("  ##      ##\n");
+
+    // Print last line of pattern
+    printf("    ######\n");
 
     return 0;
+}
+</pre>
+<p><strong><span><img alt="" height="374" src="/images/3.png" width="400"/></span></strong></p>
+<p><strong><span></span></strong></p>
+<p><br/><strong><em>4.寫一個C 程序，反向列印"X、M、L"字元。</em></strong></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main()
+{
+// Declare and initialize character variables
+char char1 = 'X';
+char char2 = 'M';
+char char3 = 'L';
+
+// Print the reversed characters as "LMX"
+printf("The reverse of %c%c%c is %c%c%c\n",
+char1, char2, char3,
+char3, char2, char1);
+
+return 0;
 }</pre>
-<p>clear</p>
-<p>cd downloads</p>
-<p>cc gnuplot_ex1.c</p>
-<p>./a.out</p>
-<p><img alt="" height="400" src="/images/gnuplot_ex1.png" width="800"/></p>
+<p><img alt="" height="96" src="/images/4.png" width="426"/></p>
+<p><strong><span></span></strong></p>
+<p><strong><span></span></strong></p>
+<p><br/><em><strong>5.寫一個 C 程式來計算高 7 英吋、寬 5 英吋的矩形的周長和面積。</strong></em></p>
+<ul>
+<li><span><span>輸出「矩形週長 = 24 英吋，<span><span>矩形面積 = 35 平方英吋」</span></span></span></span></li>
+</ul>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt; 
+
+/* 
+   Variables to store the width and height of a rectangle in inches 
+*/
+int width;          
+int height;         
+
+int area;           /* Variable to store the area of the rectangle */
+int perimeter;      /* Variable to store the perimeter of the rectangle */
+
+int main() {
+    /* Assigning values to height and width to meet the specified conditions */
+    height = 7;  // You can adjust these values to get the desired perimeter and area
+    width = 5;
+
+    /* Calculating the perimeter of the rectangle */
+    perimeter = 2 * (height + width);
+    printf("Rectangle perimeter = %d inches\n", perimeter);
+
+    /* Calculating the area of the rectangle */
+    area = height * width;
+    printf("Rectangle area = %d square inches\n", area);
+
+    return 0;
+}
+</pre>
+<p><strong><span><img alt="" height="117" src="/images/5.png" width="418"/></span></strong></p>
+<p><strong><span></span></strong></p>
+<p><br/><strong><em>6.寫一個 C 程式來計算給定半徑的圓的周長和面積。</em></strong></p>
+<ul>
+<li><span><span>輸出「圓的周長 = 37.680000 英吋，圓<span><span>的面積 = 113.040001 平方英吋」</span></span></span></span></li>
+</ul>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main() {
+    float radius;       /* Variable to store the radius of the circle */
+    float area, perimeter; /* Variables to store the area and perimeter of the circle */ 
+
+    /* Assigning a value to the radius */
+    radius = 6.0;
+
+    /* Calculating the perimeter of the circle */
+    perimeter = 2 * 3.14 * radius;
+    printf("Circle perimeter = %f inches\n", perimeter);
+
+    /* Calculating the area of the circle */
+    area = 3.14 * radius * radius;
+    printf("Circle area = %f square inches\n", area);
+
+    return 0;
+}
+</pre>
+<p><img alt="" height="108" src="/images/6.png" width="400"/></p>
+<p><em><strong>7.寫一個 C 程式來顯示多個變數。</strong></em></p>
+<ul>
+<li><span><span>int a = 125，b = 12345；<br/><span><span>長斧=1234567890；</span></span><br/><span><span>短 s = 4043；</span></span><br/><span><span>浮動x = 2.13459；</span></span><br/><span><span>雙 dx = 1.1415927；</span></span><br/><span><span>字符c = 'W';</span></span><br/><span><span>無符號長 ux = 2541567890；</span></span></span></span></li>
+</ul>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a = 125, b = 12345;        /* Declare and initialize integer variables */
+    long long_ax = 1234567890;     /* Declare and initialize long integer variable */
+    short s = 4043;                /* Declare and initialize short integer variable */
+    float x = 2.13459;             /* Declare and initialize floating-point variable */
+    double dx = 1.1415927;         /* Declare and initialize double precision variable */
+    char c = 'W';                  /* Declare and initialize character variable */
+    unsigned long ux = 2541567890; /* Declare and initialize unsigned long integer variable */
+
+    /* Various arithmetic operations and type conversions */
+    printf("a + c =  %d\n", a + c);
+    printf("x + c = %f\n", x + c);
+    printf("dx + x = %f\n", dx + x);
+    printf("((int) dx) + long_ax =  %lld\n", ((int) dx) + long_ax);
+    printf("a + x = %f\n", a + x);
+    printf("s + b =  %d\n", s + b);
+    printf("long_ax + b = %lld\n", long_ax + b);
+    printf("s + c =  %hd\n", s + c);
+    printf("long_ax + c = %lld\n", long_ax + c);
+    printf("long_ax + ux = %lu\n", long_ax + ux);
+
+    return 0;
+}
+</pre>
+<p><img alt="" height="310" src="/images/7.png" width="600"/></p>
+<p><em><strong></strong></em></p>
+<p><em><strong>8.編寫一個 C 程序，將指定的日期轉換為年、週和日。</strong></em></p>
+<ul>
+<li><span><span>輸出「年：3，<span><span>週：33，</span></span><span><span>天：3」</span></span></span></span></li>
+</ul>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main()
+{
+    int days, years, weeks;
+
+    days = 1329; // 總天數
+
+    // 轉換天數為年、週和天
+    years = days / 365; // 計算年份
+    weeks = (days % 365) / 7; // 計算週數
+    days = (days % 365) % 7; // 計算剩餘的天數
+
+    // 印出結果
+    printf("Years: %d\n", years);
+    printf("Weeks: %d\n", weeks);
+    printf("Days: %d\n", days);
+
+    return 0;
+}
+</pre>
+<p><strong><span><img alt="" height="138" src="/images/8.png" width="400"/></span></strong></p>
+<p><strong><span></span></strong></p>
+<p><br/><em><strong>9.寫一個 C 程序，接受使用者提供的兩個整數併計算這兩個整數的和。</strong></em></p>
+<ul>
+<li><span><span>測試資料：<br/><span><span>輸入第一個整數：25</span></span><br/><span><span>輸入第二個整數：38</span></span><br/><span><span>預期輸出：</span></span><br/><span><span>以上兩個整數總和 = 63</span></span></span></span></li>
+</ul>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main() 
+{
+    int x = 25, y = 38, sum; // 使用固定數值 25 和 38
+
+    sum = x + y; // 計算總和
+
+    // 印出總和
+    printf("兩個整數 %d 和 %d 的總和 = %d\n", x, y, sum);
+
+    return 0; // 表示程式執行成功
+}
+</pre>
+<p><strong><span></span></strong></p>
+<p><strong><span><img alt="" height="88" src="/images/9.png" width="400"/></span></strong></p>
+<p><br/><em><strong>10.寫一個 C 程序，接受使用者提供的兩個整數併計算這兩個整數的乘積。</strong></em></p>
+<ul>
+<li><span><span><span>測試資料：</span><br/><span><span>輸入第一個整數：25</span></span><br/><span><span>輸入第二個整數：15</span></span><br/><span><span>預期輸出：</span></span><br/><span><span>以上兩個整數的乘積 = 375</span></span></span></span></li>
+</ul>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+
+int main() 
+{
+    int x = 25, y = 15, result; // 使用固定數值 25 和 15
+
+    result = x * y; // 計算乘積
+
+    // 印出乘積
+    printf("兩個整數 %d 和 %d 的乘積 = %d\n", x, y, result);
+
+    return 0; // 表示程式執行成功
+}
+</pre>
+<p><img alt="" height="83" src="/images/10.png" width="400"/></p>
+<p></p>
+<h1>c_ex</h1>
+<p>1.Say Hello World!</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+void main()
+{
+ /* 印出 Hello */
+printf("Hello World!");
+}</pre>
+<p><img alt="" height="107" src="/images/2-1.png" width="400"/></p>
+<p><span>2.Say Hello World! Bye Bye.</span></p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
+int main()
+{
+/* 印出 Hello World! Bye Bye */
+printf("Hello World! ");
+printf("Bye ");
+printf("Bye");
+return 0;
+}
+</pre>
+<p><img alt="" height="62" src="/images/2-2.png" width="400"/></p>
+<p><span>3.</span><span>Say Hello World! Bye Bye.</span></p>
 <h1>Brython</h1>
 <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">https://en.wikipedia.org/wiki/Python_(programming_language)</a></p>
 <h4>Examples:</h4>
