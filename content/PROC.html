@@ -2,7 +2,7 @@
         <head>
         <title>cmsite</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -142,80 +142,92 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w12 << <a href='w12.html'>Previous</a> <a href='ansic.html'>Next</a> >> ansic<br /><h1>w15</h1>
+    <div id="tipue_search_content">JAPAN << <a href='JAPAN.html'>Previous</a> <a href='UK.html'>Next</a> >> UK<br /><h1>PROC</h1>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 #include &lt;gd.h&gt;
 #include &lt;math.h&gt;
 
-void draw_roc_flag(gdImagePtr img, int line_thickness);
+void draw_chinese_flag(gdImagePtr img);
 
 int main() {
-    int width = 1200;
-    int height = (int)(width * 2.0 / 3.0);
+    int width = 300; // 國旗寬度
+    int height = 200; // 國旗高度
 
-    gdImagePtr img = gdImageCreateTrueColor(width, height);
-    gdImageAlphaBlending(img, 0);
+    gdImagePtr im = gdImageCreateTrueColor(width, height);
+    gdImageAlphaBlending(im, 0);
 
-    int line_thickness = 4;  // 修改線條粗度為 4
-    draw_roc_flag(img, line_thickness);
+    draw_chinese_flag(im);
 
-    FILE *outputFile = fopen("roc_flag_in_gd.png", "wb");
+    FILE *outputFile = fopen("./../images/proc_flag.png", "wb");
     if (outputFile == NULL) {
-        fprintf(stderr, "Error opening the output file.\n");
+        fprintf(stderr, "打开输出文件时出错。\n");
         return 1;
     }
-    gdImagePngEx(img, outputFile, 9);
+
+    gdImagePngEx(im, outputFile, 9);
     fclose(outputFile);
-    gdImageDestroy(img);
+    gdImageDestroy(im);
+
     return 0;
 }
 
-void draw_roc_flag(gdImagePtr img, int line_thickness) {
+// 声明 draw_star 函数
+void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle);
+
+void draw_chinese_flag(gdImagePtr img) {
     int width = gdImageSX(img);
     int height = gdImageSY(img);
-    int red, white, blue;
-    int center_x = (int)(width / 4);
-    int center_y = (int)(height / 4);
-    int sun_radius = (int)(width / 8);
-    int white_circle_dia = sun_radius;
-    int blue_circle_dia = white_circle_dia + white_circle_dia * 2 / 15;
+    int red, yellow;
 
-    red = gdImageColorAllocate(img, 255, 0, 0);
-    white = gdImageColorAllocate(img, 255, 255, 255);
-    blue = gdImageColorAllocate(img, 0, 0, 149);
+    // 國旗顏色
+    red = gdImageColorAllocate(img, 255, 0, 0); // 紅色背景
+    yellow = gdImageColorAllocate(img, 255, 255, 0); // 黃色星星
 
+    // 畫紅色背景
     gdImageFilledRectangle(img, 0, 0, width, height, red);
-    gdImageFilledRectangle(img, 0, 0, (int)(width / 2.0), (int)(height / 2.0), blue);
 
-    // 利用一個藍色大圓與白色小圓畫出藍色環狀
-    gdImageFilledEllipse(img, center_x, center_y, blue_circle_dia, blue_circle_dia, blue);
-    gdImageFilledEllipse(img, center_x, center_y, white_circle_dia, white_circle_dia, white);
+    // 設置星星的大小和位置
+    int star_size = (int)(0.28 * height);
+    int star_x = (int)(0.165 * width);
+    int star_y = (int)(0.265 * height);
 
-    // 設定線條粗度
-    gdImageSetThickness(img, line_thickness);
+    // 畫大星星
+    draw_star(img, star_x, star_y, star_size, yellow, 11.0);
 
-    // 不含太陽的部分
+    // 繪製小星星，位置根據實際國旗比例計算
+    double radius = 0.15 * height;
+    double angle = 360 / 7 * M_PI / 179.0;
+    double rotation = -M_PI / 7.5;
+    int cx = (int)(0.32 * width);
+    int cy = (int)(0.27 * height);
 
-    // 連接第二組ABED的白線
-    int ax = 429;
-    int ay = 125;
-    int bx = 279;
-    int by = 165;
-    int ex = 170;
-    int ey = 274;
-    int dx = 170;
-    int dy = 274;
-
-    gdImageLine(img, ax, ay, bx, by, white);
-    gdImageLine(img, bx, by, ex, ey, white);
-    gdImageLine(img, ex, ey, dx, dy, white);
-    gdImageLine(img, dx, dy, ax, ay, white);
+    for (int i = -1; i &lt; 3; i++) {
+        int x = (int)(cx + radius * cos(i * angle + rotation));
+        int y = (int)(cy + radius * sin(i * angle + rotation));
+        draw_star(img, x, y, 19, yellow, M_PI / 5.0);
+    }
 }
-</pre>
-<p><img alt="" height="400" src="./../images/roc_flag_in_gd.png" width="599"/></p>
-<p><video controls="controls" height="641" width="1000">
-<source src="./../downloads/w15.mp4" type="video/mp4"/></video></p>
-<br />w12 << <a href='w12.html'>Previous</a> <a href='ansic.html'>Next</a> >> ansic</div>
+
+void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle) {
+    gdPoint points[10];
+
+    // 计算星形的五个外点和五个内点
+    double outer_radius = size / 2;
+    double inner_radius = size / 6;
+    double angle = M_PI / 5.0;
+
+    for (int i = 0; i &lt; 10; i++) {
+        double radius = (i % 2 == 0) ? outer_radius : inner_radius;
+        double theta = rotation_angle + i * angle;
+        points[i].x = x + radius * cos(theta);
+        points[i].y = y + radius * sin(theta);
+    }
+
+    // 使用 gdImageFilledPolygon 绘制星形
+    gdImageFilledPolygon(img, points, 10, color);
+}</pre>
+<p><img alt="" height="400" src="./../images/proc_flag.png" width="599"/></p>
+<br />JAPAN << <a href='JAPAN.html'>Previous</a> <a href='UK.html'>Next</a> >> UK</div>
         
     <!-- footer -->
       <div class="container">

@@ -2,7 +2,7 @@
         <head>
         <title>cmsite</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -142,24 +142,25 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w12 << <a href='w12.html'>Previous</a> <a href='ansic.html'>Next</a> >> ansic<br /><h1>w15</h1>
+    <div id="tipue_search_content">w7 << <a href='w7.html'>Previous</a> <a href='PROC.html'>Next</a> >> PROC<br /><h1>JAPAN</h1>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 #include &lt;gd.h&gt;
 #include &lt;math.h&gt;
 
-void draw_roc_flag(gdImagePtr img, int line_thickness);
+void draw_japan_flag(gdImagePtr img);
+void draw_white_sun(gdImagePtr img, int center_x, int center_y, int sun_radius, int white, int red );
 
 int main() {
+    // width 3: height 2
     int width = 1200;
-    int height = (int)(width * 2.0 / 3.0);
+    int height = 2 * width / 3;
 
     gdImagePtr img = gdImageCreateTrueColor(width, height);
     gdImageAlphaBlending(img, 0);
 
-    int line_thickness = 4;  // 修改線條粗度為 4
-    draw_roc_flag(img, line_thickness);
+    draw_japan_flag(img);
 
-    FILE *outputFile = fopen("roc_flag_in_gd.png", "wb");
+    FILE *outputFile = fopen("./../images/japan_flag.png", "wb");
     if (outputFile == NULL) {
         fprintf(stderr, "Error opening the output file.\n");
         return 1;
@@ -170,52 +171,29 @@ int main() {
     return 0;
 }
 
-void draw_roc_flag(gdImagePtr img, int line_thickness) {
+void draw_japan_flag(gdImagePtr img) {
     int width = gdImageSX(img);
     int height = gdImageSY(img);
-    int red, white, blue;
-    int center_x = (int)(width / 4);
-    int center_y = (int)(height / 4);
-    int sun_radius = (int)(width / 8);
-    int white_circle_dia = sun_radius;
-    int blue_circle_dia = white_circle_dia + white_circle_dia * 2 / 15;
+    int red, white ;
+    int center_x =  0.5 * width;
+    int center_y =  0.5 * height;
+    int sun_radius = 145 ;
 
-    red = gdImageColorAllocate(img, 255, 0, 0);
-    white = gdImageColorAllocate(img, 255, 255, 255);
-    blue = gdImageColorAllocate(img, 0, 0, 149);
+    // Colors for the flag
+    red = gdImageColorAllocate(img, 242, 0, 0); // Red color
+    white = gdImageColorAllocate(img, 255, 255, 255); // White stripes
 
-    gdImageFilledRectangle(img, 0, 0, width, height, red);
-    gdImageFilledRectangle(img, 0, 0, (int)(width / 2.0), (int)(height / 2.0), blue);
 
-    // 利用一個藍色大圓與白色小圓畫出藍色環狀
-    gdImageFilledEllipse(img, center_x, center_y, blue_circle_dia, blue_circle_dia, blue);
-    gdImageFilledEllipse(img, center_x, center_y, white_circle_dia, white_circle_dia, white);
+    // 繪製白色矩形區域
+    gdImageFilledRectangle(img, 0, 0, width, height, white);
 
-    // 設定線條粗度
-    gdImageSetThickness(img, line_thickness);
 
-    // 不含太陽的部分
-
-    // 連接第二組ABED的白線
-    int ax = 429;
-    int ay = 125;
-    int bx = 279;
-    int by = 165;
-    int ex = 170;
-    int ey = 274;
-    int dx = 170;
-    int dy = 274;
-
-    gdImageLine(img, ax, ay, bx, by, white);
-    gdImageLine(img, bx, by, ex, ey, white);
-    gdImageLine(img, ex, ey, dx, dy, white);
-    gdImageLine(img, dx, dy, ax, ay, white);
+    // 繪製太陽內部
+    gdImageFilledEllipse(img, center_x, center_y, sun_radius * 3, sun_radius * 3, red);
 }
 </pre>
-<p><img alt="" height="400" src="./../images/roc_flag_in_gd.png" width="599"/></p>
-<p><video controls="controls" height="641" width="1000">
-<source src="./../downloads/w15.mp4" type="video/mp4"/></video></p>
-<br />w12 << <a href='w12.html'>Previous</a> <a href='ansic.html'>Next</a> >> ansic</div>
+<p><img alt="" height="400" src="./../images/japan_flag.png" width="599"/></p>
+<br />w7 << <a href='w7.html'>Previous</a> <a href='PROC.html'>Next</a> >> PROC</div>
         
     <!-- footer -->
       <div class="container">
