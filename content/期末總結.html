@@ -2,7 +2,7 @@
         <head>
         <title>cmsite</title>
         <meta charset="utf-8">
-<meta property="head" content="H2">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -142,97 +142,20 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w6 << <a href='w6.html'>Previous</a> <a href='ROC.html'>Next</a> >> ROC<br /><h1>USA</h1>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
-#include &lt;gd.h&gt;
-#include &lt;math.h&gt;
-
-void draw_usa_flag(gdImagePtr img);
-void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle);
-
-int main() {
-    int width = 800;
-    int height = (int)(width / 1.9);
-
-    gdImagePtr img = gdImageCreateTrueColor(width, height);
-    gdImageAlphaBlending(img, 0);
-
-    draw_usa_flag(img);
-
-    FILE *outputFile = fopen("./../images/usa_flag.png", "wb");
-    if (outputFile == NULL) {
-        fprintf(stderr, "打开输出文件时出错。\n");
-        return 1;
-    }
-
-    gdImagePngEx(img, outputFile, 9);
-    fclose(outputFile);
-    gdImageDestroy(img);
-
-    return 0;
-}
-
-void draw_usa_flag(gdImagePtr img) {
-    int width = gdImageSX(img);
-    int height = gdImageSY(img);
-    int red, white, blue;
-    // 国旗颜色
-    red = gdImageColorAllocate(img, 178, 34, 52); // 红色条纹
-    white = gdImageColorAllocate(img, 255, 255, 255); // 白色条纹
-    blue = gdImageColorAllocate(img, 60, 59, 110); // 蓝色矩形
-
-    int stripe_height = height / 13;
-    int stripe_width = width;
-    int star_size = (int)(0.0308 * height); // 星星大小
-
-    for (int y = 0; y &lt; height; y += stripe_height) {
-        if (y / stripe_height % 2 == 0) {
-            gdImageFilledRectangle(img, 0, y, stripe_width, y + stripe_height, red);
-        } else {
-            gdImageFilledRectangle(img, 0, y, stripe_width, y + stripe_height, white);
-        }
-    }
-
-    gdImageFilledRectangle(img, 0, 0, width * 2 / 5, stripe_height * 7, blue);
-
-    int star_spacing_x = (int)(0.129 * height); // 横向星星之间的间距
-    int star_spacing_y = (int)(0.054 * height); // 纵向星星之间的间距
-    int star_start_x = (int)(0.125 * height); // 星星的起始X位置
-    int star_start_y = (int)(0.0485 * height); // 星星的起始Y位置
-
-    for (int row = 0; row &lt; 9; row++) {
-        int starsPerRow = (row % 2 == 0) ? 6 : 5;
-
-        // 计算2、4、6和8排星星的偏移量
-        int offset_x = (row % 2 == 0) ? star_spacing_x / -2 : 0;
-
-        for (int star = 0; star &lt; starsPerRow; star++) {
-            int x = star_start_x + star * star_spacing_x + offset_x;
-
-            // 旋转角度（以弧度为单位）
-            double rotation_angle = M_PI / 5; // 忘記多少度的旋转
-
-            int y = star_start_y + row * star_spacing_y;
-            draw_star(img, x, y, star_size, white, rotation_angle);
-        }
-    }
-}
-
-void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle) {
-    gdPoint points[10];
-
-    for (int i = 0; i &lt; 10; i++) {
-        double angle = M_PI / 2 + i * 2 * M_PI / 10 + rotation_angle;
-        int radius = (i % 2 == 0) ? size : size / 2;
-        points[i].x = x + radius * cos(angle);
-        points[i].y = y + radius * sin(angle);
-    }
-
-    // 用指定的颜色填充星星
-    gdImageFilledPolygon(img, points, 10, color);
-}</pre>
-<p><img alt="" height="400" src="./../images/usa_flag.png" width="758"/></p>
-<br />w6 << <a href='w6.html'>Previous</a> <a href='ROC.html'>Next</a> >> ROC</div>
+    <div id="tipue_search_content">Brython << <a href='Brython.html'>Previous</a> <br /><h1>期末總結</h1>
+在這堂課程中，我學習到了許多關於c語言及網路設定等我平時接觸不到的領域，像是使用Replit<span>編程程式語言運行和協作代碼，和使用GitHub Push網站編輯內容等。</span></div>
+<div><span></span></div>
+<div><span>其操作介面全是英文的，包括c語言內容也是，這讓我意識到我的英文單字量不足，雖然這些英文單字在日常生活中可能比較少會使用到，但是在編寫程式時，若不了解這些單字的意思，很容易沒有辦法完成想要做的內容。</span></div>
+<div><span></span></div>
+<div><span>另外，我也使用了ChatGPT輔助編輯，一開始我只會問出我想要的答案，卻沒有仔細區鑽研內容，後來我發現這些內容都很重要，且ChatGPT給的內容不一定全正確，也要依情況自行修改，此情況更能襯托出了解英文單字和程式碼的重要性，且透過多次的練習和提問後，我能更準確的使用ChatGPT獲得想要的答案及內容。</span></div>
+<div><span></span></div>
+<div><span>除此之外，經過老師的分享和指導，我也了解到使用GitHub上傳編輯內容訊息時，也要說明清楚和了解差異，除了可以隨時追蹤自己的進度以外，也能更清楚的自覺當下之所為何事。</span></div>
+<div><span></span></div>
+<div><span>運用了上述的工具及老師的分享</span>，不僅僅提升了我對c語言的認知、網路的認知，還了解關注資訊時事的重要性。經過了以上課程後，也漸漸提升了我自學的能力，對我來說是很重要且很寶貴的經驗。</div>
+<!-- editor2 結束 --><hr/>
+<p>
+<script src="https://unpkg.com/three@0.144.0/build/three.js" type="text/javascript"></script>
+</p><br />Brython << <a href='Brython.html'>Previous</a> </div>
         
     <!-- footer -->
       <div class="container">
